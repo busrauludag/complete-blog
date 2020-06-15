@@ -47,4 +47,4 @@ const Slider = () => {
   );
 };
 
-export deafult Slider;
+export default Slider;
