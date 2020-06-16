@@ -1,15 +1,26 @@
 import React from 'react';
 import Header from '../parts/Header';
+import Breadcrumb from '../parts/Breadcrumb';
+import Posts from '../parts/Posts';
+import Sidebar from '../parts/Sidebar';
 import Footer from '../parts/Footer';
 
 const Category = () => {
   return(
     <>
       <Header />
-      Category
+      <Breadcrumb />
+      <section class="blog-section">
+        <div class="container">
+          <div class="row">
+            <Posts />
+            <Sidebar />
+          </div>
+        </div>
+      </section>
       <Footer />
     </>
-  )
+  );
 };
 
 export default Category;
