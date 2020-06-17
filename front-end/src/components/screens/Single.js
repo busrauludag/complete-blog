@@ -9,8 +9,8 @@ const Single = () => {
   return(
     <>
       <Header />
-      <section class="blog-section">
-        <div class="container">
+      <section className="blog-section">
+        <div className="container">
           <div className="single-post no-sidebar">
             <PostDesc />
             <Comment />

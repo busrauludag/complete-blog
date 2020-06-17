@@ -10,7 +10,7 @@ const Category = () => {
     <>
       <Header />
       <Breadcrumb />
-      <section class="blog-section">
+      <section className="blog-section">
         <div class="container">
           <div class="row">
             <Posts />
