@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { MONGOUIR } = require('./keys');
 const app = express();
-const PORT = 500;
+const PORT = 5000;
 
 // Connection to MongoDB
 mongoose.connect(MONGOUIR, {
@@ -34,6 +34,7 @@ app.use(express.json());
 
  // Routes Import
  app.use(require('./routes/post'));
+ app.use(require('./routes/category'));
 
 app.listen(PORT, () => {
   console.log(`Server is started at ${PORT}`);
