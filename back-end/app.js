@@ -18,13 +18,22 @@ mongoose.connection.on('eroor', (err) => {
 })
 
 // Routes
-app.get('/home', (req, res) => {
-  res.send('Home!');
-})
+// app.get('/home', (req, res) => {
+//   res.send('Home!');
+// })
 
-app.get('/category', (req, res) => {
-  res.send('Category!');
-})
+// app.get('/category', (req, res) => {
+//   res.send('Category!');
+// })
+
+// Models Import
+require('./models/post');
+require('./models/category');
+
+app.use(express.json());
+
+ // Routes Import
+ app.use(require('./routes/post'));
 
 app.listen(PORT, () => {
   console.log(`Server is started at ${PORT}`);
