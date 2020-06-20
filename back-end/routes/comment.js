@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const Post = mongoose.model('Post');
 const Comment = mongoose.model('Comment');
 
 router.get('/comments', (req, res) => {
@@ -15,39 +16,46 @@ router.get('/comments', (req, res) => {
     })
 });
 
-// router.post('/new-comment', (req, res) => {
-//   const { title, description, imgUrl, category, numberOfLikes, isFeatured } = req.body;
+router.post('/new-comment', (req, res) => {
+  const { body, post } = req.body;
 
-//   if(!title || ! description || !imgUrl || !category || !numberOfLikes || !isFeatured) {
-//     res.json({ message: 'All fields are required!' });
-//   }
+  if(!body || ! post) {
+    res.json({ message: 'All fields are required!' });
+  }
 
-//   Category
-//     .findOne({ _id : category.id })
-//     .then(cat => {
-      
-//       const post = new Post({
-//         title,
-//         description,
-//         imgUrl,
-//         numberOfLikes,
-//         isFeatured,
-//         category: cat
-//       })
+  Post
+    .findOne({ _id : post.id })
+    .then(p => {
+      const comment = new Comment({
+        body,
+        post: p
+      })
     
-//       post
-//         .save()
-//         .then(() => {
-//           res.json({ msg: 'Post created' })
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//         });
+      comment
+        .save()
+        .then(() => {
+          res.json({ msg: 'Comment created' })
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-// })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+});
+
+router.get('/comments/post/:postId', (req, res) => {
+  Comment
+    .find({ post: { _id: req.params.postId } })
+    .populate('post', '_id title')
+    .then(posts => {
+      res.json({ posts });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+});
 
 module.exports = router;

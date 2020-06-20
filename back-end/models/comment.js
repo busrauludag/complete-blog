@@ -6,7 +6,7 @@ const comment = mongoose.Schema({
     type: String,
     required: true,
   },
-  body: {
+  post: {
     type: ObjectId,
     ref: 'Post' // post model 
   }

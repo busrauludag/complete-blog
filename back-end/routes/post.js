@@ -40,9 +40,9 @@ router.get('/posts/:id', (req, res) => {
     })
 });
 
-router.get('/posts/category/:id', (req, res) => {
+router.get('/posts/category/:catId', (req, res) => {
   Post
-    .find({ category: { _id: req.params.id } })
+    .find({ category: { _id: req.params.catId } })
     .populate('category', '_id name')
     .then(posts => {
       res.json({ posts });
