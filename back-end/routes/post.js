@@ -14,12 +14,39 @@ router.get('/posts', (req, res) => {
     .catch(err => {
       console.log(err);
     })
-})
+});
+
+router.get('/trending-posts', (req, res) => {
+  Post
+    .find()
+    .sort({ numberOfLikes: 1 }) // it means asc; -1 means desc
+    .populate('category', '_id name')
+    .then(posts => {
+      res.json({ posts });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+});
+
+router.get('/fresh-stories', (req, res) => {
+  Post
+    .find()
+    .sort({ _id: -1 })
+    .limit(3)
+    .populate('category', '_id name')
+    .then(posts => {
+      res.json({ posts });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+});
 
 router.post('/new-post', (req, res) => {
-  const { title, description, imgUrl, category } = req.body;
+  const { title, description, imgUrl, category, numberOfLikes } = req.body;
 
-  if(!title || ! description || !imgUrl || !category) {
+  if(!title || ! description || !imgUrl || !category || !numberOfLikes) {
     res.json({ message: 'All fields are required!' });
   }
 
@@ -31,6 +58,7 @@ router.post('/new-post', (req, res) => {
         title,
         description,
         imgUrl,
+        numberOfLikes,
         category: cat
       })
     
