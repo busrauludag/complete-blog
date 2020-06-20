@@ -29,12 +29,14 @@ mongoose.connection.on('eroor', (err) => {
 // Models Import
 require('./models/post');
 require('./models/category');
+require('./models/comment');
 
 app.use(express.json());
 
  // Routes Import
  app.use(require('./routes/post'));
  app.use(require('./routes/category'));
+ app.use(require('./routes/comment'));
 
 app.listen(PORT, () => {
   console.log(`Server is started at ${PORT}`);

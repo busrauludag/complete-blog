@@ -18,6 +18,10 @@ const post = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isFeatured: {
+    type: Boolean,
+    default: false,
+  },
   category: {
     type: ObjectId,
     ref: 'Category' // category model 
