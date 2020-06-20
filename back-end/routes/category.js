@@ -31,11 +31,11 @@ router.post('/new-category', (req, res) => {
     res.json({ message: 'All fields are required!' });
   }
 
-  const post = new Category({
+  const category = new Category({
     name
   })
 
-  post
+  category
     .save()
     .then(() => {
       res.json({ msg: 'Category created' })

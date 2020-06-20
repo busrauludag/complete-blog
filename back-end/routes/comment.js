@@ -58,4 +58,14 @@ router.get('/comments/post/:postId', (req, res) => {
     })
 });
 
+router.get('/comment-num', (req, res) => {
+  Comment.count({})
+    .then((comment) => {
+      res.json({ comment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;

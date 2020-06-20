@@ -55,7 +55,7 @@ router.get('/posts/category/:catId', (req, res) => {
 router.get('/trending-posts', (req, res) => {
   Post
     .find()
-    .sort({ numberOfLikes: 1 }) // it means asc; -1 means desc
+    .sort({ numberOfLikes: -1 }) // it means asc; -1 means desc
     .populate('category', '_id name')
     .then(posts => {
       res.json({ posts });
@@ -82,14 +82,13 @@ router.get('/fresh-stories', (req, res) => {
 router.post('/new-post', (req, res) => {
   const { title, description, imgUrl, category, numberOfLikes, isFeatured } = req.body;
 
-  if(!title || ! description || !imgUrl || !category || !numberOfLikes || !isFeatured) {
+  if (!title || !description || !imgUrl || !category || !numberOfLikes || !isFeatured) {
     res.json({ message: 'All fields are required!' });
   }
 
   Category
-    .findOne({ _id : category.id })
+    .findOne({ _id: category.id })
     .then(cat => {
-      
       const post = new Post({
         title,
         description,
@@ -97,8 +96,8 @@ router.post('/new-post', (req, res) => {
         numberOfLikes,
         isFeatured,
         category: cat
-      })
-    
+      });
+
       post
         .save()
         .then(() => {
@@ -111,7 +110,24 @@ router.post('/new-post', (req, res) => {
     })
     .catch(err => {
       console.log(err);
+    });
+});
+
+router.get('/search/:str', (req, res) => {
+  const { str } = req.params;
+
+  if (!str) {
+    res.json({ err: 'Nothing is searched!' });
+  }
+
+  Post
+    .find({ $text: { $search: str } })
+    .then((post) => {
+      res.json({ msg: 'Found!', post });
     })
-})
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
