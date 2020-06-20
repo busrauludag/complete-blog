@@ -11,8 +11,8 @@ const Category = () => {
       <Header />
       <Breadcrumb />
       <section className="blog-section">
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             <Posts />
             <Sidebar />
           </div>

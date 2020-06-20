@@ -26,3 +26,5 @@ back-end/.env
 
 front-end/.gitignore
 front-end/.git
+
+/certificate
